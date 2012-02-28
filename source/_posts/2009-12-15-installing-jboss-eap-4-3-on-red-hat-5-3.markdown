@@ -3,6 +3,7 @@ layout: post
 title: Installing JBoss eap 4.3 on Red Hat 5.3
 date: 2009-12-15 16:37:42 +01:00
 categories: [howto, jboss]
+comments: true
 ---
 <h2>Requirements</h2>
 <ul>

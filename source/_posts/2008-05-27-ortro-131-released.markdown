@@ -3,6 +3,7 @@ layout: post
 title: Ortro 1.3.1 released!
 date: 2008-05-27 16:00:28 +02:00
 categories: [ortro, php]
+comments: true
 ---
 This version includes some enhancements, and one very important security fix, a cross-site scripting (XSS) vulnerability allows remote attackers to inject arbitrary web script or HTML.
 

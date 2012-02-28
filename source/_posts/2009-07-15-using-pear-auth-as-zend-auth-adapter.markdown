@@ -3,6 +3,7 @@ layout: post
 title: Using Pear::Auth as Zend_Auth adapter
 date: 2009-07-15 14:57:04 +02:00
 categories: [pear, zend, php]
+comments: true
 ---
 If you use both Pear and Zend framework you may want to extend the <a href="http://framework.zend.com/manual/en/zend.auth.html">Zend_Auth</a> adapters to use all the containers shipped with the <a href="http://pear.php.net/package/Auth">Pear::Auth</a> package.
 

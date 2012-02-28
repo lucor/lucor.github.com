@@ -3,6 +3,7 @@ layout: post
 title: How enable the PHP Tidy extension for MAMP
 date: 2010-07-20 16:21:14 +02:00
 categories: [mamp, mac, php]
+comments: true
 ---
 <ol>
 	<li>Download the PHP source in according with your environment:

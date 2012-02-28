@@ -3,6 +3,7 @@ layout: post
 title: "Drupal 6: how create a node with CCK fields programmatically"
 date: 2010-06-28 16:19:04 +02:00
 categories: [php, drupal]
+comments: true
 ---
 {% codeblock lang:php %}
 <?php 

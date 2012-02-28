@@ -3,6 +3,7 @@ layout: post
 title: Discovery hosts and services with PHP and Nmap
 date: 2008-06-19 23:39:38 +02:00
 categories: [pear, php, nmap]
+comments: true
 ---
 Requirements:
 <ul>

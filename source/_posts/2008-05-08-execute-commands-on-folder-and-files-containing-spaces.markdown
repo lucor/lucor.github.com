@@ -3,6 +3,7 @@ layout: post
 title: Execute commands on folder and files containing spaces
 date: 2008-05-08 05:06:40 +02:00
 categories: [tips, linux]
+comments: true
 ---
 On Linux or Unix systems perform recursively a command on items might contain white space, quote marks, or backslashes can be a problem when using <em>find | xargs</em> combination.
 

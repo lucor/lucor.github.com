@@ -3,6 +3,7 @@ layout: post
 title: Caching dynamic contents using Nginx as reverse proxy cache server
 date: 2009-09-21 13:26:04 +02:00
 categories: [nginx, performance]
+comments: true
 ---
 If you need a static version of your dynamic web application maybe you may interested to configure Nginx as reverse proxy cache so it can cache also dynamic contents (pages with ? in the URI).
 

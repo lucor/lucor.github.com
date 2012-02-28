@@ -3,6 +3,7 @@ layout: post
 title: Net_Nmap 1.0.2 released
 date: 2009-06-16 22:35:38 +02:00
 categories: [pear, php]
+comments: true
 ---
 <a href="http://pear.php.net/package/Net_Nmap/">Pear::Net_Nmap</a> is a simple interface for <a href="http://nmap.org/">Nmap</a>,
 the free and open source utility for network exploration or security auditing.

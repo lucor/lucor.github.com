@@ -3,6 +3,7 @@ layout: post
 title: ReCaptcha with Zend Form
 date: 2009-04-23 14:43:03 +02:00
 categories: [zend, captcha, php]
+comments: true
 ---
 <h3>Requirements</h3>
 <ul>

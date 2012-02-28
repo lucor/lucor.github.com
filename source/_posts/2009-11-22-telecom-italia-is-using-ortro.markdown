@@ -3,6 +3,7 @@ layout: post
 title: Telecom Italia is using Ortro
 date: 2009-11-22 20:07:39 +01:00
 categories: [ortro, php]
+comments: true
 ---
 I’ m happy to announce <a href="http://www.ortro.net">Ortro</a> is also used in Telecom Italia now.
 

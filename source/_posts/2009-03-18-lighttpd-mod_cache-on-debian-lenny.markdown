@@ -3,6 +3,7 @@ layout: post
 title: lighttpd + mod_cache on debian lenny
 date: 2009-03-18 17:38:27 +01:00
 categories: [howto, performance, lighttpd, linux]
+comments: true
 ---
 {% codeblock %}
 ~# mkdir ~/tmp && cd ~/tmp

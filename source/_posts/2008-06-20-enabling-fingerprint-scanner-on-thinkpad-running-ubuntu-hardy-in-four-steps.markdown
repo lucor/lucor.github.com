@@ -3,6 +3,7 @@ layout: post
 title: Enabling fingerprint scanner on ThinkPad running Ubuntu Hardy in four steps
 date: 2008-06-20 00:42:54 +02:00
 categories: [howto, linux]
+comments: true
 ---
 Install the ThinkFinger utilities and the relative PAM module:
 <pre>

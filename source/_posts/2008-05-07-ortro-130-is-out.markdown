@@ -3,6 +3,7 @@ layout: post
 title: Ortro 1.3.0 is out!
 date: 2008-05-07 12:15:22 +02:00
 categories: [ortro, php]
+comments: true
 ---
 The new stable version of Ortro has been released.
 

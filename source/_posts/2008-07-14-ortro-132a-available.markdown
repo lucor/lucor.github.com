@@ -3,6 +3,7 @@ layout: post
 title: Ortro 1.3.2a available
 date: 2008-07-14 10:41:47 +02:00
 categories: [ortro, php]
+comments: true
 ---
 This version includes some enhancements and fixes.
 

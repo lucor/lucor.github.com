@@ -3,6 +3,7 @@ layout: post
 title: Execute SQL script from a file using PHP
 date: 2008-06-04 18:45:39 +02:00
 categories: [php, tips]
+comments: true
 ---
 The code below allows to retrieve and execute all SQL statements defined in a SQL script file removing all comments.
 
