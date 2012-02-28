@@ -1,0 +1,14 @@
+--- 
+layout: post
+title: Execute commands on folder and files containing spaces
+date: 2008-05-08 05:06:40 +02:00
+categories: [tips, linux]
+---
+On Linux or Unix systems perform recursively a command on items might contain white space, quote marks, or backslashes can be a problem when using <em>find | xargs</em> combination.
+
+To solve this you may use:
+<pre>find -type d -print0 | xargs -0 &lt;command&gt;
+find -type f -print0 | xargs -0 &lt;command&gt;</pre>
+For example to fix recursively permission:
+<pre>find -type d -print0 | xargs -0 chmod 755
+find -type f -print0 | xargs -0 chmod 644</pre>
