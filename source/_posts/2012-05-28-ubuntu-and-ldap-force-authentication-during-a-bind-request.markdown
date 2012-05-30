@@ -10,8 +10,8 @@ Default LDAP installation on Ubuntu server allows anonymous binding and director
 If you want avoid this behavior you may set the olcRequires to authc using the ldif format with the following command:
 
 ``` 
-$ sudo ldapadd -Y EXTERNAL -H ldapi:/// -f ldap_authc.ldif
+$ sudo ldapadd -Y EXTERNAL -H ldapi:/// -f ldap_disable_bind_anon.ldif
 ``` 
 where
 
-{% include_code ldap_authc.ldif lang:bash %}
+{% include_code ldap_disable_bind_anon.ldif lang:bash %}
