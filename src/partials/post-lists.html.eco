@@ -1,0 +1,23 @@
+<section class="post pure-u-1">
+    <header class="post-header">
+
+        <h2 class="post-title pure-u-1"><a class="post-link" href="<%= @post.url %>"><%= @post.title %></a></h2>
+        <p class="post-meta pure-u-1">
+            <%= @post.date.getMonthName() %> <%= @post.date.getDate() %>, <%= @post.date.getFullYear() %>
+         |
+            Posted in
+            <% for tag in @post.tags: %>
+            <a style="background-color: <%= tag.toColor() %>" class="post-category" href="/tags/<%= tag %>"><%= tag %></a>
+            <% end %>
+        </p>
+
+    </header>
+
+    <div class="post-description pure-u-1">
+        <p>
+            <%= @post.abstract %>
+        </p>
+    </div>
+    <a class="pure-button pure-button-primary" href="<%= @post.url %>">Read more...</a>
+
+</section>

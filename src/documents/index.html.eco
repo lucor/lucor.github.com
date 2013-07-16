@@ -1,0 +1,12 @@
+---
+layout: 'default'
+title: 'Home'
+---
+
+
+<div class="posts pure-g">
+    <h1 class="content-subhead pure-u-1">Recent Posts</h1>
+    <% for post in @getCollection('posts').toJSON()[0...9]: %>
+        <%- @partial('post-lists.html.eco', {post: post})%>
+    <% end %>
+</div>

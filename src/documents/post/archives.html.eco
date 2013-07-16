@@ -1,0 +1,12 @@
+---
+layout: 'default'
+title: 'Blog Archive'
+---
+
+<div class="posts pure-g">
+    <h1 class="content-subhead pure-u-1">Post Archives-</h1>
+
+    <% for post in @getCollection('posts').toJSON(): %>
+        <%- @partial('post-lists.html.eco', {post: post})%>
+    <% end %>
+</div>
