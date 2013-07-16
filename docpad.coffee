@@ -4,6 +4,10 @@ docpadConfig = {
 
   # Plugins configurations
   plugins:
+    ghpages:
+      deployRemote: 'origin'
+      deployBranch: 'master'
+      environment: 'static'
     navlinks:
       collections:
         posts: -1

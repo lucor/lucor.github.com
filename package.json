@@ -42,7 +42,8 @@
     "docpad-plugin-highlightjs": "~2.1.7",
     "docpad-plugin-navlinks": "~2.0.1",
     "docpad-plugin-tagging": "~2.0.1",
-    "docpad-plugin-services": "~2.2.6"
+    "docpad-plugin-services": "~2.2.6",
+    "docpad-plugin-ghpages": "~2.2.0"
   },
   "devDependencies": {
     "docpad-plugin-livereload": "~2.4.0"
