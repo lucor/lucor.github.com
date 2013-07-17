@@ -23,7 +23,6 @@ docpadConfig = {
 		site: {
 
       services:
-        disqus: 'lucasforge'
         twitterTweetButton: 'lucacorbo'
         googleAnalytics: 'UA-7923298-3'
 
