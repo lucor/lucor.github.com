@@ -7,8 +7,6 @@ tags: [Javascript, Docpad, coffeescript]
 abstract: As well as careless this blog over the past months I decided to make amends by giving it some love with a restyle and at the same time take a look at Docpad. So here we are, let's start the migration from Octopress to Docpad.
 ---
 
-# Migrating from Octopress to Docpad
-
 In these days I've discovered an interesting project: [Docpad](http://docpad.org). 
 
 From the Docpad site: 
