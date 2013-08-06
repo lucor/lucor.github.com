@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title>Luca's Forge</title>
+	<link href="http://lucor.github.io/atom.xml" rel="self"/>
+	<link href="http://lucor.github.io"/>
+	<updated>2013-08-06T11:55:35.747Z</updated>
+	<id>http://lucor.github.io</id>
+	<author>
+		<name>Luca Corbo</name>
+		<email>lu.corbo@gmail.com</email>
+	</author>
+
+	
+		<entry>
+			<title>Migrating from Octopress to Docpad</title>
+			<link href="http://lucor.github.io/post/migrating-from-octopress-to-docpad"/>
+			<updated>2013-08-06T08:51:00.000Z</updated>
+			<id>http://lucor.github.io/post/migrating-from-octopress-to-docpad</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Draw arc text with EaselJS</title>
+			<link href="http://lucor.github.io/post/draw-arc-text-with-easeljs"/>
+			<updated>2012-07-27T14:51:00.000Z</updated>
+			<id>http://lucor.github.io/post/draw-arc-text-with-easeljs</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Ubuntu and LDAP: force authentication during a bind request</title>
+			<link href="http://lucor.github.io/post/ubuntu-and-ldap-force-authentication-during-a-bind-request"/>
+			<updated>2012-05-28T15:21:00.000Z</updated>
+			<id>http://lucor.github.io/post/ubuntu-and-ldap-force-authentication-during-a-bind-request</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>[Drupal7] Speed up Simpletest tests usign live database</title>
+			<link href="http://lucor.github.io/post/drupal-speed-up-simpletest-tests-usign-live-database"/>
+			<updated>2012-04-05T16:17:00.000Z</updated>
+			<id>http://lucor.github.io/post/drupal-speed-up-simpletest-tests-usign-live-database</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>[Drupal7] How display block programmatically</title>
+			<link href="http://lucor.github.io/post/drupal7-how-display-block-programmatically"/>
+			<updated>2011-10-19T09:29:20.000Z</updated>
+			<id>http://lucor.github.io/post/drupal7-how-display-block-programmatically</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>How enable the PHP Tidy extension for MAMP</title>
+			<link href="http://lucor.github.io/post/how-enable-the-php-tidy-extension-for-mamp"/>
+			<updated>2010-07-20T14:21:14.000Z</updated>
+			<id>http://lucor.github.io/post/how-enable-the-php-tidy-extension-for-mamp</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Drupal 6: how create a node with CCK fields programmatically</title>
+			<link href="http://lucor.github.io/post/drupal-6-create-a-node-with-cck-fields-programmatically"/>
+			<updated>2010-06-28T14:19:04.000Z</updated>
+			<id>http://lucor.github.io/post/drupal-6-create-a-node-with-cck-fields-programmatically</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Installing JBoss eap 4.3 on Red Hat 5.3</title>
+			<link href="http://lucor.github.io/post/installing-jboss-eap-4-3-on-red-hat-5-3"/>
+			<updated>2009-12-15T15:37:42.000Z</updated>
+			<id>http://lucor.github.io/post/installing-jboss-eap-4-3-on-red-hat-5-3</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Telecom Italia is using Ortro</title>
+			<link href="http://lucor.github.io/post/telecom-italia-is-using-ortro"/>
+			<updated>2009-11-22T19:07:39.000Z</updated>
+			<id>http://lucor.github.io/post/telecom-italia-is-using-ortro</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Ortro 1.3.4 released!</title>
+			<link href="http://lucor.github.io/post/ortro-1-3-4-released"/>
+			<updated>2009-10-13T11:30:16.000Z</updated>
+			<id>http://lucor.github.io/post/ortro-1-3-4-released</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Caching dynamic contents using Nginx as reverse proxy cache server</title>
+			<link href="http://lucor.github.io/post/caching-dynamic-content-using-nginx"/>
+			<updated>2009-09-21T11:26:04.000Z</updated>
+			<id>http://lucor.github.io/post/caching-dynamic-content-using-nginx</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Using Pear::Auth as Zend_Auth adapter</title>
+			<link href="http://lucor.github.io/post/using-pear-auth-as-zend-auth-adapter"/>
+			<updated>2009-07-15T12:57:04.000Z</updated>
+			<id>http://lucor.github.io/post/using-pear-auth-as-zend-auth-adapter</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Net_Nmap 1.0.2 released</title>
+			<link href="http://lucor.github.io/post/net_nmap-1-0-2-released"/>
+			<updated>2009-06-16T20:35:38.000Z</updated>
+			<id>http://lucor.github.io/post/net_nmap-1-0-2-released</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>ReCaptcha with Zend Form</title>
+			<link href="http://lucor.github.io/post/recaptcha-with-zend-form"/>
+			<updated>2009-04-23T12:43:03.000Z</updated>
+			<id>http://lucor.github.io/post/recaptcha-with-zend-form</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>lighttpd + mod_cache on debian lenny</title>
+			<link href="http://lucor.github.io/post/lighttpd-mod_cache-on-debian-lenny"/>
+			<updated>2009-03-18T16:38:27.000Z</updated>
+			<id>http://lucor.github.io/post/lighttpd-mod_cache-on-debian-lenny</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>How to print the next line after a matching regexp with sed</title>
+			<link href="http://lucor.github.io/post/how-to-print-the-next-line-after-a-matching-regexp-with-sed"/>
+			<updated>2009-02-28T11:35:51.000Z</updated>
+			<id>http://lucor.github.io/post/how-to-print-the-next-line-after-a-matching-regexp-with-sed</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Ortro 1.3.3 Released!</title>
+			<link href="http://lucor.github.io/post/ortro-133-released"/>
+			<updated>2008-11-24T20:10:42.000Z</updated>
+			<id>http://lucor.github.io/post/ortro-133-released</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Ortro 1.3.2a available</title>
+			<link href="http://lucor.github.io/post/ortro-132a-available"/>
+			<updated>2008-07-14T08:41:47.000Z</updated>
+			<id>http://lucor.github.io/post/ortro-132a-available</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Enabling fingerprint scanner on ThinkPad running Ubuntu Hardy in four steps</title>
+			<link href="http://lucor.github.io/post/enabling-fingerprint-scanner-on-thinkpad-running-ubuntu-hardy-in-four-steps"/>
+			<updated>2008-06-19T22:42:54.000Z</updated>
+			<id>http://lucor.github.io/post/enabling-fingerprint-scanner-on-thinkpad-running-ubuntu-hardy-in-four-steps</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Discovery hosts and services with PHP and Nmap</title>
+			<link href="http://lucor.github.io/post/discovery-hosts-and-services-with-php-and-nmap"/>
+			<updated>2008-06-19T21:39:38.000Z</updated>
+			<id>http://lucor.github.io/post/discovery-hosts-and-services-with-php-and-nmap</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Execute SQL script from a file using PHP</title>
+			<link href="http://lucor.github.io/post/execute-sql-script-from-a-file-using-php"/>
+			<updated>2008-06-04T16:45:39.000Z</updated>
+			<id>http://lucor.github.io/post/execute-sql-script-from-a-file-using-php</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Ortro 1.3.1 released!</title>
+			<link href="http://lucor.github.io/post/ortro-131-released"/>
+			<updated>2008-05-27T14:00:28.000Z</updated>
+			<id>http://lucor.github.io/post/ortro-131-released</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Net_Nmap 1.0.0 beta1 released!</title>
+			<link href="http://lucor.github.io/post/net_nmap-100-beta1-released"/>
+			<updated>2008-05-22T22:11:38.000Z</updated>
+			<id>http://lucor.github.io/post/net_nmap-100-beta1-released</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Execute commands on folder and files containing spaces</title>
+			<link href="http://lucor.github.io/post/execute-commands-on-folder-and-files-containing-spaces"/>
+			<updated>2008-05-08T03:06:40.000Z</updated>
+			<id>http://lucor.github.io/post/execute-commands-on-folder-and-files-containing-spaces</id>
+            <content type="html"></content>
+		</entry>
+	
+		<entry>
+			<title>Ortro 1.3.0 is out!</title>
+			<link href="http://lucor.github.io/post/ortro-130-is-out"/>
+			<updated>2008-05-07T10:15:22.000Z</updated>
+			<id>http://lucor.github.io/post/ortro-130-is-out</id>
+            <content type="html"></content>
+		</entry>
+	
+</feed>

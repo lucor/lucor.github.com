@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Meta -->
+	<meta charset="utf-8" />
+
+	<!-- Mobile viewport optimized: h5bp.com/viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<!-- Use the .htaccess and remove these lines to avoid edge case issues.
+	   More info: h5bp.com/i/378 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<!-- Our site title and description -->
+	<title>Migrating from Octopress to Docpad | Luca's Forge</title>
+	<meta name="description" content="Experiments from the land of open source." />
+	<meta name="keywords" content="luca corbo, blog, opensource, php, javascript, coffeescript, linux, tutorial, ruby, nginx" />
+	<meta name="author" content="Luca Corbo" />
+
+	<!-- Output DocPad produced meta elements -->
+	<meta http-equiv="X-Powered-By" content="DocPad v6.48.0"/>
+
+	<!-- Icons -->
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="icons/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icons/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="icons/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="icons/apple-touch-icon-57-precomposed.png">
+
+	<!-- Shims: IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script async src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Styles -->
+	<link  rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css" /><link  rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans" /><link  rel="stylesheet" href="/styles/style.css" /><link  rel="stylesheet" href="/styles/idea.css" />
+	
+	<!-- Typekit ajf8ggy.js -->
+	<script>
+    try { Typekit.load(); } catch (e) {}
+	</script>
+</head>
+<body>
+
+<!-- Markup -->
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an outdated browser. <a href="http://whatbrowser.org">Upgrade your browser today</a> to better experience this site.</p>
+<![endif]-->
+
+<div class="pure-g-r" id="layout">
+    <div class="sidebar pure-u">
+        <header class="header pure-u-1">
+
+            <hgroup>
+                <a href="/">
+                    <h1 class="brand-title">Luca's forge</h1>
+                    <h2 class="brand-tagline">Experiments from the land of open source</h2>
+                </a>
+            </hgroup>
+
+            <nav class="nav">
+                <ul class="">
+                    <li class="nav-item">
+                        <a class="social-icons si-github" rel="nofollow" target="_new" title="GitHub Profile" href="https://github.com/lucor"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-linkedin" rel="nofollow" target="_new" title="LinkedIn Profile" href="https://linkedin.com/in/lucacorbo"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-twitter" rel="nofollow" target="_new" title="Follow me" href="https://twitter.com/lucacorbo"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-drupal" rel="nofollow" target="_new" title="Drupal Profile" href="https://drupal.org/user/768024"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-rss" rel="nofollow" target="_new" title="Subscribe in a reader" href="http://feeds.feedburner.com/lucasforge"></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <div class="content pure-u-1">
+
+        <article class="post pure-u-1">
+    <header class="post-header">
+
+        <h1 class="post-title pure-u-1">Migrating from Octopress to Docpad</h1>
+
+        <p class="post-meta pure-u-1">
+            August 6, 2013
+
+        </p>
+        <p class="post-meta pure-u-1">
+            Posted in
+            
+            <a style="background-color: #8db515" class="post-category" href="#">Javascript</a>
+            
+            <a style="background-color: #7b6c54" class="post-category" href="#">Docpad</a>
+            
+            <a style="background-color: #97a7f5" class="post-category" href="#">coffeescript</a>
+            
+        </p>
+    </header>
+
+    <div class="pure-u-1">
+        <div class="post-description pure-u-1">
+            <p>In these days I&#39;ve discovered an interesting project: <a href="http://docpad.org">Docpad</a>. </p>
+<p>From the Docpad site: </p>
+<blockquote>
+<p>DocPad is a next generation web framework; allowing for content management via the file system, rendering via plugins, and static site generation for deployment anywhere. It&#39;s built with Node and Express.js, making it naturally fast and easily extendable.</p>
+</blockquote>
+<p>As well as careless this blog over the past months I decided to make amends by giving it some love with a restyle and at the same time take a look at Docpad</p>
+<p>So here we are, let&#39;s start the migration from Octopress to Docpad.</p>
+<h2>The setup</h2>
+<p>Obviously the first thing I need was Docpad, it is very simple to bootstrap a new site: </p>
+<pre class="highlighted"><code class="ruby"><span class="variable">$ </span>npm install -g docpad<span class="variable">@6</span>.<span class="number">48</span>
+<span class="variable">$ </span>mkdir lucor.www
+<span class="variable">$ </span>cd lucor.www
+<span class="variable">$ </span>docpad run</code></pre>
+<p>The installer will ask for a skeleton:</p>
+<pre class="highlighted"><code class="vhdl">info: Which skeleton will you <span class="keyword">use</span>?
+  <span class="number">1</span>) HTML5 Boilerplate
+  <span class="number">2</span>) HTML5 Boilerplate <span class="keyword">with</span> Grunt
+  <span class="number">3</span>) Twitter Bootstrap
+  <span class="number">4</span>) Twitter Bootstrap <span class="keyword">with</span> Jade
+  <span class="number">5</span>) Twitter Bootstrap <span class="keyword">with</span> Coffeekup
+  <span class="number">6</span>) Kitchensink
+  <span class="number">7</span>) Benjamin Lupton<span class="attribute">'s</span> Website
+  <span class="number">8</span>) DocPad<span class="attribute">'s</span> Website
+  <span class="number">9</span>) Bevry<span class="attribute">'s</span> Website
+  <span class="number">10</span>) Startup Hostel<span class="attribute">'s</span> Website
+  <span class="number">11</span>) NodeChat
+  <span class="number">12</span>) SlidePad
+  <span class="number">13</span>) Reveal.js
+  <span class="number">14</span>) Conference Boilerplate
+  <span class="number">15</span>) Meny
+  <span class="number">16</span>) YUI PureCSS
+  <span class="number">17</span>) No Skeleton</code></pre>
+<p>The installer will download the required node modules,  docpad plugins and will start a DocPad instance listening to <a href="http://localhost:9778/">http://localhost:9778/</a></p>
+<h2>The theme</h2>
+<p>For prototyping I&#39;m an enthusiast Twitter Bootstrap user, but for this blog I want to give a try to YUI PureCSS so I&#39;ve hacked the <a href="http://purecss.io/layouts/blog/">Pure CSS Blog layout</a></p>
+<p>To include your css and javascript simply add copy them to src/documents folder or if you use external resources add directacly in docpad.coffee configuration file.</p>
+<p>This skeleton come with three layouts written using <a href="https://github.com/docpad/docpad-plugin-eco">eco</a> (embedded CoffeeScript templates) out of the box: default, post and page. Suite perfectly for my needs.</p>
+<h2>The collections</h2>
+<p>DocPad using <a href="http://documentcloud.github.com/backbone/">Backbone.js</a> for its Models, and <a href="https://github.com/bevry/query-engine">QueryEngine</a> for its Collections.</p>
+<p>The selected template come with two collections: pages and posts. Again… nice.</p>
+<p>The docpad-livereload plugin automatically should be build a new version using grunt so you can view your changes in the browser.</p>
+<pre class="highlighted"><code class="mel"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$(</span><span class="keyword">ls</span> <span class="variable">*.</span>markdown); <span class="keyword">do</span> 
+  mv <span class="variable">$i</span> <span class="variable">$(</span><span class="keyword">basename</span> <span class="variable">$i</span> .markdown).html.md
+done</code></pre>
+<h2>The plugins</h2>
+<p>Docpad have a lots of <a href="http://docpad.org/docs/plugins">helpers and plugins</a> the only one missed to port my old blog was a navigation bar for blog posts.  Create a new plugin is easy so I wrote <a href="https://github.com/lucor/docpad-plugin-navlinks">docpad-plugin-navlinks</a></p>
+<p>Below the list of plugin I&#39;ve used:</p>
+<ul>
+<li>cleanurls - Adds support for urls like /blog/hello as well as the original url /blog/hello.html</li>
+<li>ghpages - Deploy to GitHub Pages as easy as docpad deploy-ghpages</li>
+<li>highlightjs - Adds Highlight.js syntax highlighting to code snippets</li>
+<li>navlinks - Adds the ability to generate a navigation bar for documents with links to the next and previous document of a specified collection.</li>
+<li>partials - Adds the ability to create re-usable partials for your templates within DocPad</li>
+<li>related - Scans your documents tags: &#39;tag1&#39;, &#39;tag2&#39; metadata to produce a listing of related documents</li>
+<li>services - Adds support for many 3rd party services to DocPad</li>
+</ul>
+<h2>The source code</h2>
+<p>If you are interested the source code is available on <a href="https://github.com/lucor/lucor.github.com/tree/docpad-source">github</a></p>
+<p>Hope you enjoy new blos site, see you around.</p>
+
+        </div>
+        <div class="post-social pure-u-1">
+            <div class="hacker-news-submit-button social-button">
+	<a href="http://news.ycombinator.com/submit" class="hn-share-button" data-url="http://lucor.github.io/post/migrating-from-octopress-to-docpad">Vote on HN</a>
+	<script>
+		(function(d, t) {
+			var g = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+				g.src = '//hnbutton.appspot.com/static/hn.min.js';
+			s.parentNode.insertBefore(g, s);
+		}(document, 'script'));
+	</script>
+</div><div class="google-plus-one-button social-button">
+	<div class="g-plusone" data-size="medium" data-href="http%3A//lucor.github.io/post/migrating-from-octopress-to-docpad"></div>
+	<script>
+		(function() {
+			var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			po.src = 'https://apis.google.com/js/plusone.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+		})();
+	</script>
+</div><div class="facebook-like-button social-button">
+	<iframe src="//www.facebook.com/plugins/like.php?href=http%3A//lucor.github.io/post/migrating-from-octopress-to-docpad&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=266367676718271" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+</div><div class="twitter-tweet-button social-button">
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="lucacorbo" data-related="lucacorbo">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div><div class="reddit-submit-button social-button">
+	<script type="text/javascript" src="http://en.reddit.com/static/button/button1.js"></script>
+</div>
+        </div>
+        <div class="post-navlinks pure-u-1">
+            <div class="navlinks">
+  <a href="/post/draw-arc-text-with-easeljs" title="Previous Post: Draw arc text with EaselJS" class="navlinks-prev">&laquo; Draw arc text with EaselJS</a>
+  
+</div>
+        </div>
+        <div class="post-disqus pure-u-1">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'lucasforge'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </div>
+</article>
+
+        <footer class="footer">
+            <div>
+                Unless stated otherwise; all works are Copyright &copy 2008+
+                <a href="http://lucor.github.io/">Luca Corbo</a>
+                and licensed under the <a href="http://creativecommons.org/licenses/MIT/">MIT License</a>
+                for code and the <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+                for everything else.
+            </div>
+
+            <div class="pure-menu pure-menu-horizontal pure-menu-open">
+                <a href="#behind-this-blog" id="behind-this-blog">Behind this blog</a>
+                <a href="#behind-this-blog-show" id="behind-this-blog-show">&nbsp;</a>
+                <ul id="behind-this-blog-list">
+                    <li><a href="http://github.com" rel="nofollow" target="_new" >Hosted by Github</a></li>
+                    <li><a href="http://docpad.org" rel="nofollow" target="_new" >Powered by Docpad</a></li>
+                    <li><a href="http://purecss.io/layouts/blog/" rel="nofollow" target="_new">Theme by Pure</a></li>
+                    <li><a href="http://simpleicons.org/" rel="nofollow" target="_new">Icons by Simple Icons</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</div>
+
+	<!-- Scripts -->
+	<script >var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-7923298-3']);
+_gaq.push(['_trackPageview']);
+(function(){
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();</script>
+</body>
+</html>

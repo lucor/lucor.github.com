@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Meta -->
+	<meta charset="utf-8" />
+
+	<!-- Mobile viewport optimized: h5bp.com/viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<!-- Use the .htaccess and remove these lines to avoid edge case issues.
+	   More info: h5bp.com/i/378 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<!-- Our site title and description -->
+	<title>Using Pear::Auth as Zend_Auth adapter | Luca's Forge</title>
+	<meta name="description" content="Experiments from the land of open source." />
+	<meta name="keywords" content="luca corbo, blog, opensource, php, javascript, coffeescript, linux, tutorial, ruby, nginx" />
+	<meta name="author" content="Luca Corbo" />
+
+	<!-- Output DocPad produced meta elements -->
+	<meta http-equiv="X-Powered-By" content="DocPad v6.48.0"/>
+
+	<!-- Icons -->
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="icons/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icons/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="icons/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="icons/apple-touch-icon-57-precomposed.png">
+
+	<!-- Shims: IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script async src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Styles -->
+	<link  rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css" /><link  rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans" /><link  rel="stylesheet" href="/styles/style.css" /><link  rel="stylesheet" href="/styles/idea.css" />
+	
+	<!-- Typekit ajf8ggy.js -->
+	<script>
+    try { Typekit.load(); } catch (e) {}
+	</script>
+</head>
+<body>
+
+<!-- Markup -->
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an outdated browser. <a href="http://whatbrowser.org">Upgrade your browser today</a> to better experience this site.</p>
+<![endif]-->
+
+<div class="pure-g-r" id="layout">
+    <div class="sidebar pure-u">
+        <header class="header pure-u-1">
+
+            <hgroup>
+                <a href="/">
+                    <h1 class="brand-title">Luca's forge</h1>
+                    <h2 class="brand-tagline">Experiments from the land of open source</h2>
+                </a>
+            </hgroup>
+
+            <nav class="nav">
+                <ul class="">
+                    <li class="nav-item">
+                        <a class="social-icons si-github" rel="nofollow" target="_new" title="GitHub Profile" href="https://github.com/lucor"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-linkedin" rel="nofollow" target="_new" title="LinkedIn Profile" href="https://linkedin.com/in/lucacorbo"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-twitter" rel="nofollow" target="_new" title="Follow me" href="https://twitter.com/lucacorbo"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-drupal" rel="nofollow" target="_new" title="Drupal Profile" href="https://drupal.org/user/768024"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-rss" rel="nofollow" target="_new" title="Subscribe in a reader" href="http://feeds.feedburner.com/lucasforge"></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <div class="content pure-u-1">
+
+        <article class="post pure-u-1">
+    <header class="post-header">
+
+        <h1 class="post-title pure-u-1">Using Pear::Auth as Zend_Auth adapter</h1>
+
+        <p class="post-meta pure-u-1">
+            July 15, 2009
+
+        </p>
+        <p class="post-meta pure-u-1">
+            Posted in
+            
+            <a style="background-color: #e67034" class="post-category" href="#">pear</a>
+            
+            <a style="background-color: #21fe38" class="post-category" href="#">zend</a>
+            
+            <a style="background-color: #78b101" class="post-category" href="#">php</a>
+            
+        </p>
+    </header>
+
+    <div class="pure-u-1">
+        <div class="post-description pure-u-1">
+            <p>If you use both Pear and Zend framework you may want to extend the <a href="http://framework.zend.com/manual/en/zend.auth.html">Zend_Auth</a> adapters to use all the containers shipped with the <a href="http://pear.php.net/package/Auth">Pear::Auth</a> package.</p>
+<p>Let&#39;s go to create the class implements the Zend_Auth_Adapter_Interface starting from the Zend_Auth_Adapter_Ldap class.</p>
+<p><strong>My_Zend_Auth_Adapter_PearAuth</strong></p>
+<pre class="highlighted"><code class="php"><span class="preprocessor">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">My_Zend_Auth_Adapter_PearAuth</span> <span class="title">implements</span> <span class="title">Zend_Auth_Adapter_Interface</span>
+{</span>
+
+    <span class="comment">/**
+     * The array of arrays of Pear::Auth options passed to the constructor.
+     *
+     *<span class="phpdoc"> @var</span> array
+     */</span>
+    <span class="keyword">protected</span> <span class="variable">$_options</span> = <span class="keyword">null</span>;
+
+    <span class="comment">/**
+     * The username of the account being authenticated.
+     *
+     *<span class="phpdoc"> @var</span> string
+     */</span>
+    <span class="keyword">protected</span> <span class="variable">$_username</span> = <span class="keyword">null</span>;
+
+    <span class="comment">/**
+     * The password of the account being authenticated.
+     *
+     *<span class="phpdoc"> @var</span> string
+     */</span>
+    <span class="keyword">protected</span> <span class="variable">$_password</span> = <span class="keyword">null</span>;
+
+    <span class="comment">/**
+     * The Pear::Auth container.
+     *
+     *<span class="phpdoc"> @var</span> string
+     */</span>
+    <span class="keyword">protected</span> <span class="variable">$_container</span> = <span class="keyword">null</span>;
+
+    <span class="keyword">protected</span> <span class="variable">$_logger</span> = <span class="keyword">null</span>;
+
+    <span class="comment">/**
+     * Constructor
+     *
+     *<span class="phpdoc"> @param</span>  string $container The Pear::Auth container to use
+     *<span class="phpdoc"> @param</span>  array $options  An array of arrays of Pear::Auth options
+     *<span class="phpdoc"> @param</span>  string $username The username of the account being authenticated
+     *<span class="phpdoc"> @param</span>  string $password The password of the account being authenticated
+     *<span class="phpdoc"> @return</span> void
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(<span class="variable">$container</span>, array <span class="variable">$options</span> = array<span class="params">()</span>, <span class="variable">$username</span> = null, <span class="variable">$password</span> = null)</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;setOptions(<span class="variable">$options</span>);
+        <span class="keyword">if</span> (<span class="variable">$username</span> !== <span class="keyword">null</span>) {
+            <span class="variable">$this</span>-&gt;setUsername(<span class="variable">$username</span>);
+        }
+        <span class="keyword">if</span> (<span class="variable">$password</span> !== <span class="keyword">null</span>) {
+            <span class="variable">$this</span>-&gt;setPassword(<span class="variable">$password</span>);
+        }
+        <span class="variable">$this</span>-&gt;_container = <span class="variable">$container</span>;
+    }
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setLogger</span><span class="params">(<span class="variable">$logger</span>)</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;_logger = <span class="variable">$logger</span>;
+    }
+
+    <span class="comment">/**
+     * Returns the array of arrays of Pear::Auth options.
+     *
+     *<span class="phpdoc"> @return</span> array|null
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getOptions</span><span class="params">()</span>
+    {</span>
+        <span class="keyword">return</span> <span class="variable">$this</span>-&gt;_options;
+    }
+
+    <span class="comment">/**
+     * Sets the array of arrays of Pear::Auth options to be used by
+     * this adapter.
+     *
+     *<span class="phpdoc"> @param</span>  array $options The array of arrays of of Pear::Auth options
+     *<span class="phpdoc"> @return</span> My_Zend_Auth_Adapter_PearAuth Provides a fluent interface
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setOptions</span><span class="params">(<span class="variable">$options</span>)</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;_options = is_array(<span class="variable">$options</span>) ? <span class="variable">$options</span> : <span class="keyword">array</span>();
+        <span class="keyword">return</span> <span class="variable">$this</span>;
+    }
+
+    <span class="comment">/**
+     * Returns the username of the account being authenticated, or
+     * NULL if none is set.
+     *
+     *<span class="phpdoc"> @return</span> string|null
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getUsername</span><span class="params">()</span>
+    {</span>
+        <span class="keyword">return</span> <span class="variable">$this</span>-&gt;_username;
+    }
+
+    <span class="comment">/**
+     * Sets the username for binding
+     *
+     *<span class="phpdoc"> @param</span>  string $username The username for binding
+     *<span class="phpdoc"> @return</span> My_Zend_Auth_Adapter_PearAuth Provides a fluent interface
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setUsername</span><span class="params">(<span class="variable">$username</span>)</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;_username = (string)<span class="variable">$username</span>;
+        <span class="keyword">return</span> <span class="variable">$this</span>;
+    }
+
+    <span class="comment">/**
+     * Returns the password of the account being authenticated, or
+     * NULL if none is set.
+     *
+     *<span class="phpdoc"> @return</span> string|null
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getPassword</span><span class="params">()</span>
+    {</span>
+        <span class="keyword">return</span> <span class="variable">$this</span>-&gt;_password;
+    }
+
+    <span class="comment">/**
+     * Sets the password for the account
+     *
+     *<span class="phpdoc"> @param</span>  string $password The password of the account being authenticated
+     *<span class="phpdoc"> @return</span> My_Zend_Auth_Adapter_PearAuth Provides a fluent interface
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setPassword</span><span class="params">(<span class="variable">$password</span>)</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;_password = (string)<span class="variable">$password</span>;
+        <span class="keyword">return</span> <span class="variable">$this</span>;
+    }
+
+    <span class="comment">/**
+     * Authenticate the user
+     *
+     *<span class="phpdoc"> @throws</span> Zend_Auth_Adapter_Exception
+     *<span class="phpdoc"> @return</span> Zend_Auth_Result
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">authenticate</span><span class="params">()</span>
+    {</span>
+        <span class="keyword">require_once</span> <span class="string">'Pear/Auth.php'</span>;
+
+        <span class="variable">$messages</span> = <span class="keyword">array</span>();
+        <span class="variable">$messages</span>[<span class="number">0</span>] = <span class="string">''</span>; <span class="comment">// reserved</span>
+        <span class="variable">$messages</span>[<span class="number">1</span>] = <span class="string">''</span>; <span class="comment">// reserved</span>
+
+        <span class="variable">$username</span> = <span class="variable">$this</span>-&gt;_username;
+        <span class="variable">$password</span> = <span class="variable">$this</span>-&gt;_password;
+
+        <span class="keyword">if</span> (!<span class="variable">$username</span>) {
+            <span class="variable">$code</span> = Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND;
+            <span class="variable">$messages</span>[<span class="number">0</span>] = <span class="string">'A username is required'</span>;
+            <span class="keyword">return</span> <span class="keyword">new</span> Zend_Auth_Result(<span class="variable">$code</span>, <span class="string">''</span>, <span class="variable">$messages</span>);
+        }
+        <span class="keyword">if</span> (!<span class="variable">$password</span>) {
+            <span class="comment">/* A password is required because some servers will
+            * treat an empty password as an anonymous bind.
+            */</span>
+            <span class="variable">$code</span> = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
+            <span class="variable">$messages</span>[<span class="number">0</span>] = <span class="string">'A password is required'</span>;
+            <span class="keyword">return</span> <span class="keyword">new</span> Zend_Auth_Result(<span class="variable">$code</span>, <span class="string">''</span>, <span class="variable">$messages</span>);
+        }
+
+        <span class="comment">//Override $_POST variables required by Auth pear package.</span>
+        <span class="variable">$_POST</span>[<span class="string">'username'</span>] = <span class="variable">$username</span>;
+        <span class="variable">$_POST</span>[<span class="string">'password'</span>] = <span class="variable">$password</span>;
+
+        <span class="variable">$_auth</span> = <span class="keyword">new</span> Auth(<span class="variable">$this</span>-&gt;_container, <span class="variable">$this</span>-&gt;_options, <span class="string">''</span>, <span class="keyword">false</span>);
+
+        <span class="comment">//Enable logging</span>
+        <span class="keyword">if</span> (<span class="keyword">isset</span> (<span class="variable">$this</span>-&gt;_options[<span class="string">'enableLogging'</span>]) &amp;&amp;
+
+            <span class="variable">$this</span>-&gt;_options[<span class="string">'enableLogging'</span>] &amp;&amp;
+            !is_null(<span class="variable">$this</span>-&gt;_logger)
+        ) {
+            <span class="variable">$_auth</span>-&gt;logger = <span class="variable">$this</span>-&gt;_logger;
+        }
+
+        <span class="variable">$_auth</span>-&gt;start();
+
+        <span class="keyword">if</span> (<span class="variable">$_auth</span>-&gt;getAuth()) {
+            <span class="comment">//Destroy Pear::Auth session to avoid unespected behaviour</span>
+            <span class="variable">$_auth</span>-&gt;logout();
+            <span class="variable">$messages</span>[] = <span class="string">"$username authentication successful"</span>;
+            <span class="keyword">return</span> <span class="keyword">new</span> Zend_Auth_Result(Zend_Auth_Result::SUCCESS, <span class="variable">$username</span>, <span class="variable">$messages</span>);
+        }
+
+        <span class="variable">$messages</span>[] = <span class="string">"$username authentication failed."</span>;
+        <span class="keyword">return</span> <span class="keyword">new</span> Zend_Auth_Result(Zend_Auth_Result::FAILURE, <span class="variable">$username</span>, <span class="variable">$messages</span>);
+    }
+}</code></pre>
+<p>and now let&#39;s go to use it, for example in our controller</p>
+<pre class="highlighted"><code class="php"><span class="preprocessor">&lt;?php</span>
+....
+<span class="variable">$auth</span> = Zend_Auth::getInstance();
+<span class="variable">$config</span> = <span class="keyword">new</span> Zend_Config_Xml(<span class="string">'APPLICATION_HOME/configs/auth_ldap.xml'</span>, <span class="string">'production'</span>);
+<span class="variable">$options</span> = <span class="variable">$config</span>-&gt;ldap-&gt;toArray();
+<span class="variable">$authAdapter</span> = <span class="keyword">new</span> Zend_Auth_Adapter_PearAuth(<span class="string">'LDAP'</span>, <span class="variable">$options</span>, <span class="variable">$username</span>, <span class="variable">$password</span>);
+<span class="variable">$result</span> = <span class="variable">$auth</span>-&gt;authenticate(<span class="variable">$authAdapter</span>);
+<span class="keyword">if</span> (!is_null(<span class="variable">$result</span>) &amp;&amp; <span class="variable">$result</span>-&gt;isValid()) {
+    <span class="variable">$authorized</span> = <span class="keyword">true</span>;
+}
+....</code></pre>
+<p>In the example above I&#39;ve used the LDAP container but this should be valid for all supported containers by Pear::Auth.</p>
+<p>Hope this helps ;-)</p>
+
+        </div>
+        <div class="post-social pure-u-1">
+            <div class="hacker-news-submit-button social-button">
+	<a href="http://news.ycombinator.com/submit" class="hn-share-button" data-url="http://lucor.github.io/post/using-pear-auth-as-zend-auth-adapter">Vote on HN</a>
+	<script>
+		(function(d, t) {
+			var g = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+				g.src = '//hnbutton.appspot.com/static/hn.min.js';
+			s.parentNode.insertBefore(g, s);
+		}(document, 'script'));
+	</script>
+</div><div class="google-plus-one-button social-button">
+	<div class="g-plusone" data-size="medium" data-href="http%3A//lucor.github.io/post/using-pear-auth-as-zend-auth-adapter"></div>
+	<script>
+		(function() {
+			var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			po.src = 'https://apis.google.com/js/plusone.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+		})();
+	</script>
+</div><div class="facebook-like-button social-button">
+	<iframe src="//www.facebook.com/plugins/like.php?href=http%3A//lucor.github.io/post/using-pear-auth-as-zend-auth-adapter&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=266367676718271" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+</div><div class="twitter-tweet-button social-button">
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="lucacorbo" data-related="lucacorbo">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div><div class="reddit-submit-button social-button">
+	<script type="text/javascript" src="http://en.reddit.com/static/button/button1.js"></script>
+</div>
+        </div>
+        <div class="post-navlinks pure-u-1">
+            <div class="navlinks">
+  <a href="/post/net_nmap-1-0-2-released" title="Previous Post: Net_Nmap 1.0.2 released" class="navlinks-prev">&laquo; Net_Nmap 1.0.2 released</a>
+  <a href="/post/caching-dynamic-content-using-nginx" title="Next Post: Net_Nmap 1.0.2 released" class="navlinks-next">Caching dynamic contents using Nginx as reverse proxy cache server &raquo;</a>
+</div>
+        </div>
+        <div class="post-disqus pure-u-1">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'lucasforge'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </div>
+</article>
+
+        <footer class="footer">
+            <div>
+                Unless stated otherwise; all works are Copyright &copy 2008+
+                <a href="http://lucor.github.io/">Luca Corbo</a>
+                and licensed under the <a href="http://creativecommons.org/licenses/MIT/">MIT License</a>
+                for code and the <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+                for everything else.
+            </div>
+
+            <div class="pure-menu pure-menu-horizontal pure-menu-open">
+                <a href="#behind-this-blog" id="behind-this-blog">Behind this blog</a>
+                <a href="#behind-this-blog-show" id="behind-this-blog-show">&nbsp;</a>
+                <ul id="behind-this-blog-list">
+                    <li><a href="http://github.com" rel="nofollow" target="_new" >Hosted by Github</a></li>
+                    <li><a href="http://docpad.org" rel="nofollow" target="_new" >Powered by Docpad</a></li>
+                    <li><a href="http://purecss.io/layouts/blog/" rel="nofollow" target="_new">Theme by Pure</a></li>
+                    <li><a href="http://simpleicons.org/" rel="nofollow" target="_new">Icons by Simple Icons</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</div>
+
+	<!-- Scripts -->
+	<script >var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-7923298-3']);
+_gaq.push(['_trackPageview']);
+(function(){
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Meta -->
+	<meta charset="utf-8" />
+
+	<!-- Mobile viewport optimized: h5bp.com/viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<!-- Use the .htaccess and remove these lines to avoid edge case issues.
+	   More info: h5bp.com/i/378 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<!-- Our site title and description -->
+	<title>ReCaptcha with Zend Form | Luca's Forge</title>
+	<meta name="description" content="Experiments from the land of open source." />
+	<meta name="keywords" content="luca corbo, blog, opensource, php, javascript, coffeescript, linux, tutorial, ruby, nginx" />
+	<meta name="author" content="Luca Corbo" />
+
+	<!-- Output DocPad produced meta elements -->
+	<meta http-equiv="X-Powered-By" content="DocPad v6.48.0"/>
+
+	<!-- Icons -->
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="icons/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icons/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="icons/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="icons/apple-touch-icon-57-precomposed.png">
+
+	<!-- Shims: IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script async src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Styles -->
+	<link  rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css" /><link  rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans" /><link  rel="stylesheet" href="/styles/style.css" /><link  rel="stylesheet" href="/styles/idea.css" />
+	
+	<!-- Typekit ajf8ggy.js -->
+	<script>
+    try { Typekit.load(); } catch (e) {}
+	</script>
+</head>
+<body>
+
+<!-- Markup -->
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an outdated browser. <a href="http://whatbrowser.org">Upgrade your browser today</a> to better experience this site.</p>
+<![endif]-->
+
+<div class="pure-g-r" id="layout">
+    <div class="sidebar pure-u">
+        <header class="header pure-u-1">
+
+            <hgroup>
+                <a href="/">
+                    <h1 class="brand-title">Luca's forge</h1>
+                    <h2 class="brand-tagline">Experiments from the land of open source</h2>
+                </a>
+            </hgroup>
+
+            <nav class="nav">
+                <ul class="">
+                    <li class="nav-item">
+                        <a class="social-icons si-github" rel="nofollow" target="_new" title="GitHub Profile" href="https://github.com/lucor"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-linkedin" rel="nofollow" target="_new" title="LinkedIn Profile" href="https://linkedin.com/in/lucacorbo"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-twitter" rel="nofollow" target="_new" title="Follow me" href="https://twitter.com/lucacorbo"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-drupal" rel="nofollow" target="_new" title="Drupal Profile" href="https://drupal.org/user/768024"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-rss" rel="nofollow" target="_new" title="Subscribe in a reader" href="http://feeds.feedburner.com/lucasforge"></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <div class="content pure-u-1">
+
+        <article class="post pure-u-1">
+    <header class="post-header">
+
+        <h1 class="post-title pure-u-1">ReCaptcha with Zend Form</h1>
+
+        <p class="post-meta pure-u-1">
+            April 23, 2009
+
+        </p>
+        <p class="post-meta pure-u-1">
+            Posted in
+            
+            <a style="background-color: #21fe38" class="post-category" href="#">zend</a>
+            
+            <a style="background-color: #7a82ef" class="post-category" href="#">captcha</a>
+            
+            <a style="background-color: #78b101" class="post-category" href="#">php</a>
+            
+        </p>
+    </header>
+
+    <div class="pure-u-1">
+        <div class="post-description pure-u-1">
+            <p><h3>Requirements</h3></p>
+<p><ul>
+    <li><a href="http://framework.zend.com/download/" target="_blank">Zend Framework</a> (1.7.8 at writing time)</li>
+    <li>Valid <a href="http://recaptcha.net/" target="_blank">ReCaptcha</a> keys (public &amp; private)</li>
+</ul></p>
+<p><h3>Simple ReCaptcha</h3></p>
+<h4>Zend Form Class</h4>
+
+<pre class="highlighted"><code class="php"><span class="preprocessor">&lt;?php</span>
+
+<span class="comment">/**
+ * File application/forms/ReCaptcha.php
+ */</span>
+<span class="class"><span class="keyword">class</span> <span class="title">Form_ReCaptcha</span> <span class="keyword">extends</span> <span class="title">Zend_Form</span>
+{</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;setMethod(<span class="string">'post'</span>);
+        <span class="comment">//Add your elements here...</span>
+
+        <span class="variable">$recaptcha</span> = <span class="keyword">new</span> Zend_Service_ReCaptcha(<span class="variable">$publickey</span>, <span class="variable">$privatekey</span>);
+
+        <span class="variable">$captcha</span> = <span class="keyword">new</span> Zend_Form_Element_Captcha(<span class="string">'challenge'</span>,
+              <span class="keyword">array</span>(<span class="string">'captcha'</span>        =&gt; <span class="string">'ReCaptcha'</span>,
+                    <span class="string">'captchaOptions'</span> =&gt; <span class="keyword">array</span>(<span class="string">'captcha'</span> =&gt; <span class="string">'ReCaptcha'</span>, <span class="string">'service'</span> =&gt; <span class="variable">$recaptcha</span>)));
+
+        <span class="variable">$this</span>-&gt;addElement(<span class="variable">$captcha</span>);
+
+        <span class="comment">// Add the submit button</span>
+        <span class="variable">$this</span>-&gt;addElement(<span class="string">'submit'</span>, <span class="string">'submit'</span>, <span class="keyword">array</span>(<span class="string">'label'</span> =&gt; <span class="string">'Submit'</span>));
+    }
+}
+<span class="preprocessor">?&gt;</span></code></pre>
+<h4>Zend Controller Class</h4>
+
+<pre class="highlighted"><code class="php"><span class="preprocessor">&lt;?php</span>
+
+<span class="comment">/**
+ * File application/controller/ReCaptchaController.php
+ */</span>
+<span class="class"><span class="keyword">class</span> <span class="title">ReCaptchaController</span> <span class="keyword">extends</span> <span class="title">Zend_Controller_Action</span>
+{</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">indexAction</span><span class="params">()</span>
+    {</span>
+        <span class="keyword">require_once</span> APPLICATION_PATH . <span class="string">'/forms/Contact.php'</span>;
+
+        <span class="variable">$form</span> = <span class="keyword">new</span> Form_ReCaptcha();
+
+        <span class="keyword">if</span> (<span class="variable">$this</span>-&gt;_request-&gt;isPost()) {
+            <span class="variable">$formData</span> = <span class="variable">$this</span>-&gt;_request-&gt;getPost();
+            <span class="keyword">if</span> (<span class="variable">$form</span>-&gt;isValid(<span class="variable">$formData</span>)) {
+                <span class="variable">$recaptcha</span> = <span class="keyword">new</span> Zend_Service_ReCaptcha(<span class="variable">$publickey</span>, <span class="variable">$privatekey</span>);
+
+                <span class="variable">$result</span> = <span class="variable">$recaptcha</span>-&gt;verify(<span class="variable">$this</span>-&gt;_getParam(<span class="string">'recaptcha_challenge_field'</span>),
+                                             <span class="variable">$this</span>-&gt;_getParam(<span class="string">'recaptcha_response_field'</span>));
+                <span class="keyword">if</span> (!<span class="variable">$result</span>-&gt;isValid()) {
+                    <span class="comment">//ReCaptcha validation error</span>
+                    <span class="comment">//Your action here...</span>
+               }
+            }
+        }   
+        <span class="variable">$this</span>-&gt;view-&gt;form = <span class="variable">$form</span>;
+    }
+}
+<span class="preprocessor">?&gt;</span></code></pre>
+<p><h3>Customized ReCaptcha</h3>
+You may also want to internationalizing or change colors to ReCaptcha, to do it you need to specify some options for the  Zend_Service_ReCaptcha object.
+See the <a href="http://wiki.recaptcha.net/index.php/Main_Page" target="_blank">ReCaptcha wiki</a> for a complete list of available options. </p>
+<h4>Zend Form Class</h4>
+
+<pre class="highlighted"><code class="php"><span class="preprocessor">&lt;?php</span>
+<span class="comment">/**
+ * File  application/forms/ReCaptcha.php
+ */</span>
+<span class="class"><span class="keyword">class</span> <span class="title">Form_ReCaptcha</span> <span class="keyword">extends</span> <span class="title">Zend_Form</span>
+{</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;setMethod(<span class="string">'post'</span>);
+        <span class="comment">//Add your elements here...</span>
+        <span class="variable">$recaptcha</span> = <span class="keyword">new</span> Zend_Service_ReCaptcha(<span class="variable">$publickey</span>, <span class="variable">$privatekey</span>);
+
+        <span class="comment">//Translate in your language</span>
+        <span class="variable">$recaptcha_it_translation</span> = 
+            <span class="keyword">array</span>(<span class="string">'visual_challenge'</span> =&gt; <span class="string">"Verifica video"</span>,
+                  <span class="string">'audio_challenge'</span> =&gt; <span class="string">"Verifica audio"</span>,
+                  <span class="string">'refresh_btn'</span> =&gt; <span class="string">"Effettua una nuova verifica"</span>,
+                  <span class="string">'instructions_visual'</span> =&gt; <span class="string">"Scrivi le due parole"</span>,
+                  <span class="string">'instructions_audio'</span> =&gt; <span class="string">"Scrivi quello che ascolti"</span>,
+                  <span class="string">'help_btn'</span> =&gt; <span class="string">"Aiuto"</span>,
+                  <span class="string">'play_again'</span> =&gt; <span class="string">"Riascolto di nuovo l'audio"</span>,
+                  <span class="string">'cant_hear_this'</span> =&gt; <span class="string">"Scarica l'audio come MP3"</span>,
+                  <span class="string">'incorrect_try_again'</span> =&gt; <span class="string">"Incorretto. Prova ancora."</span>);
+
+        <span class="variable">$recaptcha</span>-&gt;setOption(<span class="string">'custom_translations'</span>, <span class="variable">$recaptcha_it_translation</span>);
+        <span class="comment">//Change theme</span>
+        <span class="variable">$recaptcha</span>-&gt;setOption(<span class="string">'theme'</span>, <span class="string">'clean'</span>);
+
+        <span class="variable">$captcha</span> = <span class="keyword">new</span> Zend_Form_Element_Captcha(<span class="string">'challenge'</span>,
+              <span class="keyword">array</span>(<span class="string">'captcha'</span>        =&gt; <span class="string">'ReCaptcha'</span>,
+                    <span class="string">'captchaOptions'</span> =&gt; <span class="keyword">array</span>(<span class="string">'captcha'</span> =&gt; <span class="string">'ReCaptcha'</span>,
+                                             <span class="string">'service'</span> =&gt; <span class="variable">$recaptcha</span>)));
+
+        <span class="variable">$this</span>-&gt;addElement(<span class="variable">$captcha</span>);
+
+        <span class="comment">// Add the submit button</span>
+        <span class="variable">$this</span>-&gt;addElement(<span class="string">'submit'</span>, <span class="string">'submit'</span>, <span class="keyword">array</span>(<span class="string">'label'</span> =&gt; <span class="string">'Submit'</span>));
+    }
+}
+<span class="preprocessor">?&gt;</span></code></pre>
+
+        </div>
+        <div class="post-social pure-u-1">
+            <div class="hacker-news-submit-button social-button">
+	<a href="http://news.ycombinator.com/submit" class="hn-share-button" data-url="http://lucor.github.io/post/recaptcha-with-zend-form">Vote on HN</a>
+	<script>
+		(function(d, t) {
+			var g = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+				g.src = '//hnbutton.appspot.com/static/hn.min.js';
+			s.parentNode.insertBefore(g, s);
+		}(document, 'script'));
+	</script>
+</div><div class="google-plus-one-button social-button">
+	<div class="g-plusone" data-size="medium" data-href="http%3A//lucor.github.io/post/recaptcha-with-zend-form"></div>
+	<script>
+		(function() {
+			var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			po.src = 'https://apis.google.com/js/plusone.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+		})();
+	</script>
+</div><div class="facebook-like-button social-button">
+	<iframe src="//www.facebook.com/plugins/like.php?href=http%3A//lucor.github.io/post/recaptcha-with-zend-form&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=266367676718271" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+</div><div class="twitter-tweet-button social-button">
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="lucacorbo" data-related="lucacorbo">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div><div class="reddit-submit-button social-button">
+	<script type="text/javascript" src="http://en.reddit.com/static/button/button1.js"></script>
+</div>
+        </div>
+        <div class="post-navlinks pure-u-1">
+            <div class="navlinks">
+  <a href="/post/lighttpd-mod_cache-on-debian-lenny" title="Previous Post: lighttpd + mod_cache on debian lenny" class="navlinks-prev">&laquo; lighttpd + mod_cache on debian lenny</a>
+  <a href="/post/net_nmap-1-0-2-released" title="Next Post: lighttpd + mod_cache on debian lenny" class="navlinks-next">Net_Nmap 1.0.2 released &raquo;</a>
+</div>
+        </div>
+        <div class="post-disqus pure-u-1">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'lucasforge'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </div>
+</article>
+
+        <footer class="footer">
+            <div>
+                Unless stated otherwise; all works are Copyright &copy 2008+
+                <a href="http://lucor.github.io/">Luca Corbo</a>
+                and licensed under the <a href="http://creativecommons.org/licenses/MIT/">MIT License</a>
+                for code and the <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+                for everything else.
+            </div>
+
+            <div class="pure-menu pure-menu-horizontal pure-menu-open">
+                <a href="#behind-this-blog" id="behind-this-blog">Behind this blog</a>
+                <a href="#behind-this-blog-show" id="behind-this-blog-show">&nbsp;</a>
+                <ul id="behind-this-blog-list">
+                    <li><a href="http://github.com" rel="nofollow" target="_new" >Hosted by Github</a></li>
+                    <li><a href="http://docpad.org" rel="nofollow" target="_new" >Powered by Docpad</a></li>
+                    <li><a href="http://purecss.io/layouts/blog/" rel="nofollow" target="_new">Theme by Pure</a></li>
+                    <li><a href="http://simpleicons.org/" rel="nofollow" target="_new">Icons by Simple Icons</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</div>
+
+	<!-- Scripts -->
+	<script >var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-7923298-3']);
+_gaq.push(['_trackPageview']);
+(function(){
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();</script>
+</body>
+</html>
