@@ -7,7 +7,7 @@
          |
             Posted in
             <% for tag in @post.tags: %>
-            <a style="background-color: <%= tag.toColor() %>" class="post-category" href="/tags/<%= tag %>"><%= tag %></a>
+            <a style="background-color: <%= tag.toColor() %>" class="post-category" href="/tags/<%= tag.toLowerCase() %>"><%= tag %></a>
             <% end %>
         </p>
 
